@@ -12,7 +12,7 @@
             Console.WriteLine("Введите второе число");
             double b = double.Parse(Console.ReadLine());
 
-            // Вариант 1
+            // Вариант 1 (основной)
             (a, b) = (b, a); 
 
             // Вариант 2
