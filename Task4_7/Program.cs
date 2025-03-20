@@ -4,7 +4,13 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            //Вводится n. Определить количество цифр в числе
+            int result = Console.ReadLine()
+                .ToArray()
+                .Where(x => char.IsDigit(x))
+                .Count();
+
+            Console.WriteLine(result);
         }
     }
 }
