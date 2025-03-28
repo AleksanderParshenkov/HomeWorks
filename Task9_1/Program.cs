@@ -12,62 +12,46 @@ namespace Task9_1
             //Класс должен содержать конструктор для установки начальных значений, а также метод ToRadians для перевода угла в радианы.
             //Создать объект на основе разработанного класса. Осуществить использование объекта в программе.
 
-            Angle angle = new Angle(5, 30, 47);
+            // Градусы - любое целое число, минуты и секунды в диапазоне 0-59
+            Angle angle = new Angle(-365, 30, 47);
+
+            Console.WriteLine($"Заданный угол: {angle.Graduses.ToString()} {angle.Minuts.ToString()} {angle.Secunds.ToString()}");
+
             double angleToRadians = angle.ToRadians();
-            Console.WriteLine(angleToRadians);
+            Console.WriteLine($"Количество радиан (с исключением лишних окружностей): {Math.Round(angleToRadians, 4)}");
         }
 
         public class Angle()
         {
-            int grasuses
-            {
-                get
-                {
-                    return grasuses;
-                }
-                set
-                {
-                    grasuses = GetValue(value); 
-                }
-            }
-            int minuts
-            {
-                get
-                {
-                    return minuts;
-                }
-                set
-                {
-                    minuts = GetValue(value);
-                }
-            }
-            int secunds
-            { 
-                get
-                {
-                    return secunds;
-                }
-                set
-                {
-                    secunds = GetValue(value);
-                }
-            }
+            // Реализовано исключение лишних окружностей. Градусы приводятся к диапазону 0-359
+            int graduses = 0;
+            public int Graduses {  get { return graduses; }  set { graduses = GetValueGradus(value); } } 
 
-            public Angle (int grasuses, int minuts, int secunds) : this ()
+            // Минуты и секунды изначально задаются в диапазоне 0-59 для упрощения, т.е. меньше нельзя, а больше - добавится градус или минута.
+            int minuts = 0;
+            public int Minuts { get { return minuts; } set { minuts = value; } }
+
+            int secunds = 0;
+            public int Secunds { get { return secunds; } set { secunds = value; } }
+
+            public Angle(int grasuses, int minuts, int secunds) : this()
             {
-                this.grasuses = grasuses;
-                this.minuts = minuts;
-                this.secunds = secunds;
+                Graduses = grasuses;
+                Minuts = minuts;
+                Secunds = secunds;
             }
 
             public double ToRadians()
             {
-                return (grasuses + minuts / 60 + secunds / 360) * (Math.PI) / 180;
+                double result = Graduses * Math.PI / 180 + Minuts * Math.PI / 180 / 60 + Minuts * Math.PI / 180 / 60 / 60;
+                return result;
             }
         }
 
-        public static int GetValue (int value)
+        public static int GetValueGradus (int value)
         {
+            int result = 0;
+            if (value == 0) return 0;
             if (value > 0)
             {
                 if (value > 360)
@@ -77,7 +61,8 @@ namespace Task9_1
                 }
                 else
                 {
-                    return value;
+                    result = value;
+                    return result;
                 }
             }
             else
@@ -86,11 +71,11 @@ namespace Task9_1
                 {
                     int n = (int)Math.Floor((double)Math.Abs(value) / 360);
                     value = value + 360 * n;
-                    return 360 - value;
+                    return value + 360;
                 }
                 else
                 {
-                    return 360 - value;
+                    return 360 + value;
                 }                
             }
         }
