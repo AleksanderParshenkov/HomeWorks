@@ -4,7 +4,17 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            // Ввести с клавиатуры предложение.
+            // Предложение представляет собой слова, разделенные пробелом.
+            // Знаки препинания не используются. Найти самое длинное слово в строке.
+
+            string[] str = Console.ReadLine().Split(' ');
+
+            string result = "";
+
+            foreach (string s in str) if (s.Length > result.Length) result = s;
+            
+            Console.WriteLine(result);
         }
     }
 }
