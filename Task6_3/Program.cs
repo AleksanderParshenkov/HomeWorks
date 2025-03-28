@@ -35,10 +35,23 @@
             //Средняя стоимость товара: 1 000,46 р.
             //--------------------------------
 
+            string month = "Март";
+            int year = 2025;
+            decimal salesAmount = 1234567.89M;
+            int productSalesCount = 1234;
+            string reportName = "Отчёт о продажах";
 
+            Console.WriteLine(GetReportString(reportName, month, year, salesAmount, productSalesCount));
 
-
-            Console.WriteLine("Hello, World!");
+            string GetReportString (string reportName,string month,int year,decimal salesAmount,int productSalesCount )
+            {
+                return $"{reportName} за {month} {year}\n" +
+                    $"--------------------------------\n\n" +
+                    $"Общая сумма продаж: {salesAmount}\n\n" +
+                    $"Количество проданных товаров: {productSalesCount}\n\n" +
+                    $"Средняя стоимость товара: {Math.Round(salesAmount/productSalesCount,2)}\n" +
+                    $"--------------------------------";
+            }
         }
     }
 }
